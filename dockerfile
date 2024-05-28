@@ -1,18 +1,20 @@
+# Use uma imagem base oficial do Node.js
+FROM node:20
 
-FROM node:14
-
+# Defina o diretório de trabalho dentro do contêiner
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+# Copie os arquivos de configuração do Yarn
+COPY package.json yarn.lock ./
 
 # Instale as dependências do projeto
-RUN npm install
+RUN yarn install
 
 # Copie o restante dos arquivos do projeto
 COPY . .
 
 # Compile o código TypeScript
-RUN npm run build
+RUN yarn run build
 
 # Exponha a porta em que a aplicação vai rodar
 EXPOSE 3000
